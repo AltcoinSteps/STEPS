@@ -989,7 +989,7 @@ int64_t GetProofOfWorkReward(int64_t nFees)
     {
         nSubsidy = 15000000 * COIN; //ICO
     }
-        else if(pindexBest->nHeight < 10001)
+        else if(pindexBest->nHeight < 1001)
     {
         nSubsidy = 0 * COIN;
     }
