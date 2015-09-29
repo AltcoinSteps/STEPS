@@ -327,15 +327,16 @@ void BitcoinGUI::createToolBars()
     toolbar->setObjectName("toolbar");
     addToolBar(Qt::LeftToolBarArea,toolbar);
     toolbar->setOrientation(Qt::Vertical);
-    toolbar->setFixedWidth(210);
+    toolbar->setFixedWidth(205);
     toolbar->setMovable( false );
     toolbar->setToolButtonStyle(Qt::ToolButtonTextOnly);
 
     QLabel* header = new QLabel();
-    header->setMinimumSize(175, 175);
+    header->setMinimumSize(156,156);
     header->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
     header->setPixmap(QPixmap(":/images/header"));
-    header->setMaximumSize(175,175);
+    header->setMaximumSize(156,156);
+    header->setContentsMargins(26,26,0,0);
     header->setScaledContents(true);
     toolbar->addWidget(header);
 
@@ -347,7 +348,7 @@ void BitcoinGUI::createToolBars()
     toolbar->addAction(receiveCoinsAction);
     toolbar->addAction(historyAction);
     toolbar->addAction(addressBookAction);
-    toolbar->setStyleSheet("#toolbar {background: transparent; text-align: left; color: black;padding-right: 25px;} QToolBar QToolButton:hover {background-color: transparent;} QToolBar QToolButton:selected {background-color: transparent;} QToolBar QToolButton:checked {background-color: transparent;} QToolBar QToolButton:pressed {background-color: transparent;} QToolBar QToolButton {font-family:Steps; font-size:15px; font-weight: bold; min-width:130px;max-width:130px; min-height:25px;max-height:25px; color: white; text-align: left; }");
+    toolbar->setStyleSheet("#toolbar {background: transparent; text-align: center; color: black;padding-right: 30px;} QToolBar QToolButton:hover {background-color: transparent;} QToolBar QToolButton:selected {background-color: transparent;} QToolBar QToolButton:checked {background-color: transparent;} QToolBar QToolButton:pressed {background-color: transparent;} QToolBar QToolButton {font-family:Steps; font-size:15px; font-weight: bold; min-width:125px;max-width:125px; min-height:25px;max-height:25px; color: white; text-align: left; }");
 
 }
 
