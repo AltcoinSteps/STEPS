@@ -18,6 +18,8 @@
 
 
 #include <stdio.h>
+#include <iostream>
+#include <ctime>
 
 using namespace std;
 using namespace boost;
@@ -42,8 +44,18 @@ CBigNum bnProofOfWorkLimit(~uint256(0) >> 20);
 CBigNum bnProofOfStakeLimit(~uint256(0) >> 20);
 CBigNum bnProofOfWorkLimitTestNet(~uint256(0) >> 16);
 
+int64_t nTimef = time(0);
+unsigned int spacing() {
+    if(nTimef < NEW_BLOCKTIME_TIMESTAMP) {
+        return 5 * 60;
+    } else {
+        return 1 * 60; 
+    }
+}
+
+unsigned int nTargetSpacing = spacing();
+
 static const int64_t nTargetTimespan = 25 * 60;  // 25m
-unsigned int nTargetSpacing = 5 * 60; // 5 minute blocks
 static const int64_t nInterval = nTargetTimespan / nTargetSpacing;
 static const int64_t nDiffChangeTarget = 1;
 
@@ -61,6 +73,7 @@ uint256 nBestInvalidTrust = 0;
 uint256 hashBestChain = 0;
 CBlockIndex* pindexBest = NULL;
 int64_t nTimeBestReceived = 0;
+
 
 CMedianFilter<int> cPeerBlockCounts(5, 0); // Amount of blocks that other nodes claim to have
 
@@ -1155,10 +1168,15 @@ int64_t GetProofOfStakeReward(int64_t nCoinAge, int64_t nFees)
         nSubsidy = 300 * COIN; //~600000
     }
 
-    else if(pindexBest->nHeight > 60100)
+    else if(pindexBest->nHeight < 60601)
     {
         nSubsidy = nCoinAge * COIN_YEAR_REWARD * 33 / (365 * 33 + 8);  //default 1% yr 
-    }    
+    }  
+
+    else if(pindexBest->nHeight > 60600)
+    {
+        nSubsidy = 2.5 * COIN;
+    }  
 
     if (fDebug && GetBoolArg("-printcreation"))
         printf("GetProofOfStakeReward(): create=%s nCoinAge=%"PRId64"\n", FormatMoney(nSubsidy).c_str(), nCoinAge);

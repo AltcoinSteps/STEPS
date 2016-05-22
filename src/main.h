@@ -43,7 +43,7 @@ static const int64_t MAX_MONEY = 30000000 * COIN;
 static const int64_t COIN_YEAR_REWARD = 1 * CENT; // 1%
 
 static const int MODIFIER_INTERVAL_SWITCH = 100;
-
+static const int NEW_BLOCKTIME_TIMESTAMP = 1464102000;
 
 inline bool MoneyRange(int64_t nValue) { return (nValue >= 0 && nValue <= MAX_MONEY); }
 // Threshold for nLockTime: below this value it is interpreted as block number, otherwise as UNIX timestamp.
