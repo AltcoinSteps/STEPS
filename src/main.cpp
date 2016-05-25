@@ -44,17 +44,16 @@ CBigNum bnProofOfWorkLimit(~uint256(0) >> 20);
 CBigNum bnProofOfStakeLimit(~uint256(0) >> 20);
 CBigNum bnProofOfWorkLimitTestNet(~uint256(0) >> 16);
 
-int64_t nTimef = time(0);
 unsigned int spacing() {
-    if(nTimef < NEW_BLOCKTIME_TIMESTAMP) {
-        return 5 * 60;
+
+    if(nBestHeight > BLOCKTIME_SWITCH) {
+        return 1 * 60;
     } else {
-        return 1 * 60; 
+        return 5 * 60; 
     }
 }
 
 unsigned int nTargetSpacing = spacing();
-
 static const int64_t nTargetTimespan = 25 * 60;  // 25m
 static const int64_t nInterval = nTargetTimespan / nTargetSpacing;
 static const int64_t nDiffChangeTarget = 1;
@@ -1244,6 +1243,8 @@ unsigned int GetNextTargetRequired(const CBlockIndex* pindexLast, bool fProofOfS
     const CBlockIndex* pindexPrevPrev = GetLastBlockIndex(pindexPrev->pprev, fProofOfStake);
     if (pindexPrevPrev->pprev == NULL)
         return bnTargetLimit.GetCompact(); // second block
+
+    
 
     int64_t nActualSpacing = pindexPrev->GetBlockTime() - pindexPrevPrev->GetBlockTime();
     if (nActualSpacing < 0)
